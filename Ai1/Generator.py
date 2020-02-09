@@ -11,6 +11,19 @@ def rand_char():
     return chr(c)
 
 
+def rand_elem(v):
+    n = random()
+    esq, dir, r = 0, len(v) - 1, len(v) - 1
+    while esq <= dir:
+        mid = (esq + dir) // 2
+        if v[mid] >= n:
+            r = mid
+            dir = mid - 1
+        else:
+            esq = mid + 1
+    return r
+
+
 class Generator:
     gen_count = 0
     pop = []
@@ -52,17 +65,28 @@ class Generator:
 
     def next_gen(self):
         self.gen_count += 1
-        pool = []
+        pre = []
 
-        for i in range(len(self.pop)):
-            for j in range(floor(self.pop[i].fitness * 100)):
-                pool.append(i)
-        # print(len(pool))
+        soma = 0
+        for d in self.pop:
+            pre.append(d.fitness)
+            soma += d.fitness
+
+        # print(soma)
+        # print(pre)
+
+        for i in range(len(pre)):
+            pre[i] /= soma
+
+        for i in range(1, len(pre)):
+            pre[i] += pre[i - 1]
+
+        # print(pre)
 
         new_pop = []
         for i in range(self.max_pop):
-            p1 = self.pop[pool[randint(0, len(pool) - 1)]]
-            p2 = self.pop[pool[randint(0, len(pool) - 1)]]
+            p1 = self.pop[rand_elem(pre)]
+            p2 = self.pop[rand_elem(pre)]
 
             s = ""
             for j in range(len(self.target)):

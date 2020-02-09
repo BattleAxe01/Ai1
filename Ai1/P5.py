@@ -16,7 +16,7 @@ def setup():
     global generator
     size(HEIGHT, WIDTH)
 
-    max_pop = 40
+    max_pop = 45
     mutation_rate = 0.1
     target = "uma moeda e uma moeda independente do lado que esteja virada"
     # target = "banana"
