@@ -65,29 +65,18 @@ class Generator:
 
     def next_gen(self):
         self.gen_count += 1
-        pre = []
+        v = []
 
-        soma = 0
-        for d in self.pop:
-            pre.append(d.fitness)
-            soma += d.fitness
+        for i in range(len(self.pop)):
+            v.append((self.pop[i].fitness, i))
 
-        # print(soma)
-        # print(pre)
+        v.sort(reverse=True)
 
-        for i in range(len(pre)):
-            pre[i] /= soma
+        p1 = self.pop[v[0][1]]
+        p2 = self.pop[v[1][1]]
 
-        for i in range(1, len(pre)):
-            pre[i] += pre[i - 1]
-
-        # print(pre)
-
-        new_pop = []
-        for i in range(self.max_pop):
-            p1 = self.pop[rand_elem(pre)]
-            p2 = self.pop[rand_elem(pre)]
-
+        new_pop = [p1, p2]
+        for i in range(2, self.max_pop):
             s = ""
             for j in range(len(self.target)):
                 if random() < self.mutation_rate:

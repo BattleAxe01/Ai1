@@ -16,8 +16,8 @@ def setup():
     global generator
     size(HEIGHT, WIDTH)
 
-    max_pop = 45
-    mutation_rate = 0.1
+    max_pop = 200
+    mutation_rate = 0.2
     target = "uma moeda e uma moeda independente do lado que esteja virada"
     # target = "banana"
 
@@ -74,4 +74,5 @@ def display():
             x += text_width(generator.target) + 100
 
 
-run()
+if __name__ == '__main__':
+    run()
